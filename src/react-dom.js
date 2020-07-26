@@ -7,11 +7,31 @@ function render(vdom, container) {
     const dom = document.createElement(vdom.tag);
     for (const name in vdom.attrs) {
         // 未考虑处理 className
-        dom.setAttribute(name, vdom.attrs[name]);
+        setAttribute(dom, name, vdom.attrs[name]);
     }
     // 递归渲染子节点
     vdom.children.forEach((child) => render(child, dom));
     return container.appendChild(dom);
+}
+
+function setAttribute(dom, attr, value) {
+    // 处理 className
+    if (attr === 'className') {
+        dom.class = value;
+    } else if (/^on\w+$/.test(attr)) {
+        // 处理事件绑定
+        attr = attr.toLowerCase();
+        dom[attr] = value;
+    } else if (attr === 'style') {
+        // 处理样式
+        const style = value;
+        Object.keys(style).forEach((property) => {
+            const propertyValue = style[property];
+            dom.style[property] = typeof propertyValue === 'number' ? propertyValue + 'px' : propertyValue;
+        });
+    } else {
+        dom[attr] = value;
+    }
 }
 
 export default {
