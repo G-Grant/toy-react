@@ -1,5 +1,5 @@
 function createElement(type, config, ...children) {
-    return { type, config, children };
+    return { tag: type, attrs: config, children };
 }
 
 export default {
