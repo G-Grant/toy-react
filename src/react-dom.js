@@ -16,9 +16,8 @@ function render(vdom, container) {
 
 function setAttribute(dom, attr, value) {
     // 处理 className
-    if (attr === 'className') {
-        dom.class = value;
-    } else if (/^on\w+$/.test(attr)) {
+    if (attr === 'className') attr = 'calss';
+    if (/^on\w+$/.test(attr)) {
         // 处理事件绑定
         attr = attr.toLowerCase();
         dom[attr] = value;
@@ -30,7 +29,12 @@ function setAttribute(dom, attr, value) {
             dom.style[property] = typeof propertyValue === 'number' ? propertyValue + 'px' : propertyValue;
         });
     } else {
-        dom[attr] = value;
+        if (value) {
+            // 此处需理解 dom 上的 property 和 html 上 attribute
+            dom.setAttribute(attr, value);
+        } else {
+            dom.removeAttribute(attr);
+        }
     }
 }
 

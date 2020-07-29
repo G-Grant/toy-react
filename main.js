@@ -2,11 +2,7 @@ import React from './src/react';
 import ReactDOM from './src/react-dom';
 
 ReactDOM.render(
-    <div
-        className='container'
-        onClick={() => {
-            console.log('点击页面');
-        }}>
+    <div className='container'>
         <h1
             id='title'
             className='title'
@@ -26,7 +22,7 @@ ReactDOM.render(
         <p>无边落木萧萧下， 不尽长江滚滚来。</p>
         <p style={{ marginTop: 30 }}>万里悲秋常作客，百年多病独登台。</p>
         <p>艰难苦恨繁霜鬓， 潦倒新停浊酒杯。</p>
-        <input type='text' value={20} readOnly />
+        <input type='checkbox' checked={false} onChange={() => {}} />
     </div>,
     document.getElementById('app')
 );
